@@ -18,8 +18,6 @@ struct Process *rear;
 
 void AddInProcessQueue(struct ProcessQueue *P,char pid[4],float at,float bt){
 struct Process *temp=Newnode;
-struct Process *current=NULL;
-struct Process *prev=NULL;
 strcpy(temp->PId,pid);
 temp->AT=at;
 temp->BT=bt;
@@ -29,28 +27,11 @@ P->front=temp;
 P->rear=temp;
 return;
 }
-current=P->front;
-while(current!=NULL){
-if(bt<current->BT){
-if(prev==NULL){
-temp->Next=current;
-P->front=temp;
-return;
-}
-else{
-prev->Next=temp;
-temp->Next=current;
-return;
-}
-}
-prev=current;
-current=current->Next;
-}
 P->rear->Next=temp;
 P->rear=temp;
 }
 
-void SJFS(struct ProcessQueue *P,int n){
+void FCFS(struct ProcessQueue *P,int n){
 float Time=0;
 float AvgTime=0;
 struct Process *p=NULL;
@@ -90,78 +71,52 @@ scanf("%f",&bt);
 printf("----------------------------------------------------------\n");
 AddInProcessQueue(&Pro,pid,at,bt);
 }
-SJFS(&Pro,n);
+FCFS(&Pro,n);
 return 0;
 }
 /*
 Output:-
-(kali㉿kali)-[~/Desktop/Testing Program]
+──(kali㉿kali)-[~/Desktop/Testing Program]
 └─$ ./a.out     
-Enter The Number Of Process:- 5
+Enter The Number Of Process:- 3
 ----------------------------------------------------------
 Enter The Process Id:- P1
 Enter The Arrival time:- 0
-Enter The Burst Time:- 5
+Enter The Burst Time:- 4
 ----------------------------------------------------------
 ----------------------------------------------------------
 Enter The Process Id:- P2
 Enter The Arrival time:- 0
-Enter The Burst Time:- 2
+Enter The Burst Time:- 3
 ----------------------------------------------------------
 ----------------------------------------------------------
 Enter The Process Id:- P3
 Enter The Arrival time:- 0
-Enter The Burst Time:- 1
-----------------------------------------------------------
-----------------------------------------------------------
-Enter The Process Id:- P4
-Enter The Arrival time:- 0
-Enter The Burst Time:- 8
-----------------------------------------------------------
-----------------------------------------------------------
-Enter The Process Id:- P5
-Enter The Arrival time:- 0
-Enter The Burst Time:- 6
+Enter The Burst Time:- 5
 ----------------------------------------------------------
 At Time:- 0.000000
 ----------------------------------------------------------
-Process ID:- P3
+Process ID:- P1
 Arrival Time:- 0.000000
-Burst Time:- 1.000000
+Burst Time:- 4.000000
 Wating Time:- 0.000000
 
 ----------------------------------------------------------
-At Time:- 1.000000
+At Time:- 4.000000
 ----------------------------------------------------------
 Process ID:- P2
 Arrival Time:- 0.000000
-Burst Time:- 2.000000
-Wating Time:- 1.000000
+Burst Time:- 3.000000
+Wating Time:- 4.000000
 
 ----------------------------------------------------------
-At Time:- 3.000000
+At Time:- 7.000000
 ----------------------------------------------------------
-Process ID:- P1
+Process ID:- P3
 Arrival Time:- 0.000000
 Burst Time:- 5.000000
-Wating Time:- 3.000000
+Wating Time:- 7.000000
 
 ----------------------------------------------------------
-At Time:- 8.000000
-----------------------------------------------------------
-Process ID:- P5
-Arrival Time:- 0.000000
-Burst Time:- 6.000000
-Wating Time:- 8.000000
-
-----------------------------------------------------------
-At Time:- 14.000000
-----------------------------------------------------------
-Process ID:- P4
-Arrival Time:- 0.000000
-Burst Time:- 8.000000
-Wating Time:- 14.000000
-
-----------------------------------------------------------
-Average Waiting Time:- 5.200000
+Average Waiting Time:- 3.666667
 */
